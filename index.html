@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitness Tracker</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+<!-- PWA uchun manifest -->
+<link rel="manifest" href="manifest.json" />
+
+<!-- Apple uchun (iOS) -->
+<link rel="apple-touch-icon" href="assets/icons/fitness-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Theme color -->
+<meta name="theme-color" content="#4DB6AC">
+</head>
+<body>
+  <!-- Hamburger Menu Button -->
+  <div class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="close-btn" id="closeSidebar">
+      <i class="fas fa-times"></i>
+    </div>
+    <ul>
+      <li class="nav-item active" data-page="pushups">
+        <i class="fas fa-fist-raised"></i> Push-ups
+      </li>
+      <li class="nav-item" data-page="pullups">
+        <i class="fas fa-pull-request"></i> Pull-ups
+      </li>
+      <li class="nav-item" data-page="history">
+        <i class="fas fa-history"></i> All History
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container" id="mainContent">
+    <!-- Push-ups Page -->
+    <section id="pushups" class="page active">
+      <h2><i class="fa-solid fa-weight-hanging"></i> Push-ups</h2>
+      <p>How many push-ups did you do today?</p>
+      <!-- Push-ups sahifasida input yonida sana -->
+        <!-- Push-ups input -->
+        <div class="input-group">
+            <input 
+            type="number" 
+            id="pushups-input" 
+            placeholder="e.g., 75" 
+            min="0" 
+            inputmode="numeric"
+            />
+            <input 
+            type="date" 
+            id="pushups-date" 
+            class="date-picker" 
+            max=""
+            />
+        </div>
+        <button class="btn" onclick="savePushUps()">
+            <i class="fas fa-save"></i> Save
+        </button>
+
+      <div class="history-section">
+        <h3>📅 Your Push-up History</h3>
+        <div id="pushups-history" class="entries">
+          <p>No records yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pull-ups Page -->
+    <section id="pullups" class="page">
+      <h2><i class="fas fa-pull-request"></i> Pull-ups</h2>
+      <p>How many pull-ups did you do today?</p>
+      <!-- Pull-ups input -->
+        <div class="input-group">
+            <input 
+            type="number" 
+            id="pullups-input" 
+            placeholder="e.g., 40" 
+            min="0" 
+            inputmode="numeric"
+            />
+            <input 
+            type="date" 
+            id="pullups-date" 
+            class="date-picker" 
+            max=""
+            />
+        </div>
+      <button class="btn" onclick="savePullUps()">
+        <i class="fas fa-save"></i> Save
+      </button>
+
+      <div class="history-section">
+        <h3>📅 Your Pull-up History</h3>
+        <div id="pullups-history" class="entries">
+          <p>No records yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full History Page -->
+    <section id="history" class="page">
+      <h2><i class="fas fa-history"></i> Complete History</h2>
+      <div class="stats" id="stats">
+        Total: 0 push-ups, 0 pull-ups | Avg per day: 0
+      </div>
+      <div id="full-history" class="entries">
+        <p>No records yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; <span id="year"></span> FitnessTracker.app
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+  <!-- Service Worker registratsiyasi -->
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service_worker.js')
+          .then(reg => console.log('SW registered: ', reg))
+          .catch(err => console.log('SW registration failed: ', err));
+      });
+    }
+  </script>
+</body>
+
+</html>
